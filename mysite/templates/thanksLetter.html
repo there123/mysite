@@ -1,0 +1,47 @@
+<html>
+	<head><title>Ordering notice</title></head>
+
+	<body>
+
+		<h1>Ordering notice</h1>
+
+		<!-- 用两个大括号括起来的文字（例如 {{ person_name }} ）称为 变量(variable) 。这意味着在此处插入指定变量的值 -->
+		<p>Dear {{ person_name }},</p>
+
+		<!-- filter过滤器是一种最便捷的转换变量输出格式的方式
+		{{ship_date|date:”F j, Y” }}，我们将变量ship_date传递给date过滤器，同时指定参数”F j,Y”。date过滤器根据参数进行格式输出。 过滤器是用管道符(|)来调用的
+		 -->
+		<p>Thanks for placing an order from {{ company }}. It's scheduled to
+	ship on {{ ship_date|date:"F j, Y" }}.</p>
+
+		<p>Here are the items you've ordered:</p>
+
+		<ul>
+			<!-- 被大括号和百分号包围的文本(例如 {% if ordered_warranty %} )是 模板标签(template tag) 。标签(tag)定义比较明确，即： 仅通知模板系统完成某些工作的标签 -->
+		
+		<!-- 可以用if item_list来检测数组是否为空 -->
+		{% for item in item_list %}
+		    <li>{{ item }}</li>
+		    <% empty %><!--如果列表为空时显示后面的内容 -->
+		    <p>the item_list is empty</p>
+		{% endfor %}
+		</ul>
+
+		<!-- 被大括号和百分号包围的文本(例如 {% if ordered_warranty %} )是 模板标签(template tag) 。标签(tag)定义比较明确，即： 仅通知模板系统完成某些工作的标签 -->
+		{% if ordered_warranty %}
+		    <p>Your warranty information will be included in the packaging.</p>
+		{% else %}
+		    <p>You didn't order a warranty, so you're on your own when
+		    the products inevitably stop working.</p>
+		    {% if order_confirmed %}
+				<p>
+					用嵌套的else和if来表达else if
+				</p>
+
+		    {% endif %}
+		{% endif %}
+
+		<p>Sincerely,<br />{{ company }}</p>
+
+	</body>
+</html>
